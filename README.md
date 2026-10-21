@@ -99,3 +99,25 @@ payment QR codes, or backup files.
 
 Review the policy separately if the app's data practices change. A visual
 redesign alone should not change its legal wording or revision date.
+
+## RazeDev publication
+
+This repository is the editing source for the public `razestore` website snapshot
+in `remyo/razedev`. The new home is
+`https://remyo.github.io/razedev/razestore/home/` and the policy is
+`https://remyo.github.io/razedev/razestore/privacy/`. These are intended deployment
+addresses; creating the workflow does not publish them.
+
+After reviewing and pushing the website changes to `main`, run **Actions →
+Publish website to RazeDev → Run workflow**, selecting `main`. Set the private
+Actions secret `RAZEDEV_PUBLISH_TOKEN` first: a fine-grained token selecting only
+`remyo/razedev` with Contents read/write. Never commit or paste the token.
+The workflow exports only this product's approved pages/assets, validates the
+combined site, and pushes only `public/razestore/`. RazeDev then deploys Pages.
+Publishing is manual; ordinary source pushes alone do not republish the website.
+
+Update RazeDev's exact asset manifest when website dependencies change, including
+content-hashed guide images. Keep development files, guide generators, test
+reports, backups, and Git history in this source repository. Published browser
+files are public even if this repository is private. Preserve old Pages URLs
+until existing app/store policy links have a separately verified migration.
