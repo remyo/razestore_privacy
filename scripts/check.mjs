@@ -87,7 +87,7 @@ const server = createServer(async (request, response) => {
   }
 });
 
-await check('privacy-policy-verbatim', async () => {
+await check('privacy-policy-approved-contact-update', async () => {
   const original = execFileSync('git', ['show', `${baselineRef}:index.html`], {cwd: root, encoding: 'utf8'});
   const current = await readFile(resolve(root, 'privacy.html'), 'utf8');
   const oldBody = original.match(/<main>([\s\S]*?)<\/main>/)?.[1];
@@ -95,10 +95,11 @@ await check('privacy-policy-verbatim', async () => {
   assert(oldBody && newBody, 'Cannot locate original policy or current policy article');
   const blocks = html => [...html.matchAll(/<(h1|h2|p|li)\b([^>]*)>([\s\S]*?)<\/\1>/g)]
     .filter(match => !match[2].includes('eyebrow')).map(match => [match[1], match[3]]);
-  const expected = blocks(oldBody);
+  // The contact address is the only approved policy-content change.
+  const expected = blocks(oldBody.replaceAll('razedevworkspace@gmail.com', 'razeappdev@gmail.com'));
   assert.equal(expected.length, 33, 'Unexpected policy baseline');
-  assert.deepEqual(blocks(newBody), expected, 'Policy headings, prose, lists, metadata, or links changed');
-  return {unchangedBlocks: expected.length};
+  assert.deepEqual(blocks(newBody), expected, 'Policy changed beyond the approved contact email update');
+  return {comparedBlocks: expected.length, approvedContactEmail: 'razeappdev@gmail.com'};
 });
 
 let browser;

@@ -22,19 +22,20 @@ opening `index.html` directly, although an HTTP preview is recommended.
 
 - `index.html`: product website, feature overview, screenshot gallery, contact.
 - `privacy.html`: dedicated policy with a section index. The original legal
-  wording and September 18, 2026 revision date have been preserved.
+  wording and September 18, 2026 revision date have been preserved, with the
+  contact email updated to `razeappdev@gmail.com`.
 - `assets/site.css`: responsive cream/teal theme, with reduced-motion support.
 - `assets/site.js`: keyboard-accessible screenshot tabs and an enlarging dialog.
-- `assets/screenshots/`: five actual current Flutter app screens, rendered with
-  disposable demonstration data. These are not generated mockups or live
-  customer screenshots.
+- `assets/screenshots/`: five actual Flutter app screens from the refreshed
+  October 2026 promotional captures, rendered with disposable demonstration
+  data. See [asset notes](assets/README.md) for the source of each image.
 - `assets/brand/app-icon.png`: the existing app icon, unchanged.
 - `assets/images/raze-store-3d.png`: supporting 3D brand illustration, not a
   replacement app icon. See [asset notes](assets/README.md).
 
 The website does not include an invented store download URL, analytics, a
-contact-data collection form, or a fake waitlist. Contact uses the existing
-support email. Add a real verified store listing when ready.
+contact-data collection form, or a fake waitlist. Contact uses
+`razeappdev@gmail.com`. Add a real verified store listing when ready.
 
 ## GitHub Pages and repository rename
 
@@ -84,7 +85,8 @@ package installation is performed by the script.
 
 It starts a temporary local server and checks desktop/tablet/mobile layouts,
 images and anchors, screenshot tabs and keyboard controls, image dialog,
-unchanged policy text, renamed project paths, and no-JavaScript navigation.
+policy text with the approved contact email update, renamed project paths,
+and no-JavaScript navigation.
 Screenshots and results are saved in the ignored `.preview/` directory.
 
 ## Updating content
