@@ -1,5 +1,6 @@
 (() => {
   'use strict';
+  const assetsUrl = new URL('.', document.currentScript.src);
   const screens = {
     products: {image: 'home.png', title: 'The right price, right there.', text: "Browse by category, search by name, or scan a barcode. Your store's product prices are always close at hand.", alt: 'The Raze Store product catalog, shown with sample products and prices'},
     checkout: {image: 'checkout.png', title: 'A clear total. The right change.', text: 'Adjust quantities, enter the cash received, and keep checkout moving. Complete a sale when everything is ready.', alt: 'Raze Store checkout with sample cart items, total, cash, and change'},
@@ -28,7 +29,7 @@
         tab.scrollIntoView({block: 'nearest', inline: 'nearest', behavior: 'instant'});
       }
     }
-    screen.src = `./assets/screenshots/${entry.image}`;
+    screen.src = new URL(`screenshots/${entry.image}`, assetsUrl).href;
     screen.alt = entry.alt;
     document.querySelector('#screen-title').textContent = entry.title;
     document.querySelector('#screen-description').textContent = entry.text;
@@ -51,7 +52,7 @@
   zoom.addEventListener('click', () => {
     const entry = screens[current];
     const image = document.querySelector('#dialog-image');
-    image.src = `./assets/screenshots/${entry.image}`;
+    image.src = new URL(`screenshots/${entry.image}`, assetsUrl).href;
     image.alt = entry.alt;
     document.querySelector('#dialog-title').textContent = entry.title;
     if (typeof dialog.showModal !== 'function') {window.location.assign(image.src); return;}
