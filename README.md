@@ -30,6 +30,7 @@ opening `index.html` directly, although an HTTP preview is recommended.
   October 2026 promotional captures, rendered with disposable demonstration
   data. See [asset notes](assets/README.md) for the source of each image.
 - `assets/brand/app-icon.png`: the existing app icon, unchanged.
+- `publish.sh`: publish this website to RazeDev using GitHub SSH.
 - `assets/images/raze-store-3d.png`: supporting 3D brand illustration, not a
   replacement app icon. See [asset notes](assets/README.md).
 
@@ -105,8 +106,32 @@ redesign alone should not change its legal wording or revision date.
 This repository is the editing source for the public `razestore` website snapshot
 in `remyo/razedev`. The new home is
 `https://remyo.github.io/razedev/razestore/home/` and the policy is
-`https://remyo.github.io/razedev/razestore/privacy/`. These are intended deployment
-addresses; creating the workflow does not publish them.
+`https://remyo.github.io/razedev/razestore/privacy/`.
+
+From this repository's `main` branch, run:
+
+```sh
+sh publish.sh gith5 "update privacy"
+```
+
+The commit message is optional: `sh publish.sh gith5` uses a default message.
+Requires Git, Node.js 24+, GitHub SSH access, and a configured Git commit identity.
+No publishing token or sibling RazeDev checkout is needed. The script fetches a
+fresh temporary RazeDev `main`, validates the website, commits all tracked source
+changes and new files listed in the public manifest, pushes this source `main`,
+then publishes only `public/razestore/`. RazeDev deploys Pages automatically if the
+export changed. The temporary clone is removed on exit.
+
+Review all tracked changes before running it. Unexpected new files are rejected,
+including staged files outside the website manifest; commit intentional new
+development files separately. If this source is behind GitHub, reconcile it
+first. Validation failures do not create a source commit; a later push failure
+keeps your edits/local commit so you can resolve the problem and rerun. The
+script never force-pushes, resets source changes, or changes your branch.
+
+For help, run `sh publish.sh --help`.
+
+### Optional GitHub Actions publishing
 
 After reviewing and pushing the website changes to `main`, run **Actions →
 Publish website to RazeDev → Run workflow**, selecting `main`. Set the private
@@ -114,7 +139,8 @@ Actions secret `RAZEDEV_PUBLISH_TOKEN` first: a fine-grained token selecting onl
 `remyo/razedev` with Contents read/write. Never commit or paste the token.
 The workflow exports only this product's approved pages/assets, validates the
 combined site, and pushes only `public/razestore/`. RazeDev then deploys Pages.
-Publishing is manual; ordinary source pushes alone do not republish the website.
+This alternative requires the secret; the local SSH script above does not.
+Ordinary source pushes alone do not republish the RazeDev website.
 
 Update RazeDev's exact asset manifest when website dependencies change, including
 content-hashed guide images. Keep development files, guide generators, test
